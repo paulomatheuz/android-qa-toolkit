@@ -8,7 +8,9 @@ O projeto está sendo construído de forma incremental, com foco no aprendizado 
 
 🚧 Em desenvolvimento
 
-Atualmente, a aplicação identifica a presença de um aparelho conectado e informa o número de série e o estado da conexão com o ADB.
+A primeira versão de consulta básica identifica um aparelho conectado, informa seu número de série e o estado da conexão com o ADB. Quando o aparelho está conectado e autorizado, consulta e exibe o fabricante, o modelo e a versão do Android.
+
+O programa é executado no computador. Python continua sendo a linguagem principal, e o ADB é a ferramenta externa utilizada para a comunicação com o aparelho.
 
 ## Contexto
 
@@ -18,48 +20,62 @@ O Android QA Toolkit é um projeto pessoal e educacional. Ele não utiliza nem r
 
 ## Funcionalidades atuais
 
-- verifica se o ADB está disponível no computador;
-- lista aparelhos reconhecidos pelo ADB;
+- consulta a lista de aparelhos reconhecidos pelo ADB;
+- informa quando o executável ADB não é encontrado ou quando a listagem retorna um erro;
 - informa quando nenhum aparelho está conectado;
-- exibe o número de série do primeiro aparelho encontrado;
-- identifica se o aparelho está conectado e autorizado;
-- informa outros estados retornados pelo ADB, como `unauthorized` ou `offline`.
+- exibe o número de série e o estado do primeiro aparelho encontrado;
+- identifica o estado `device` e informa que o aparelho está conectado e autorizado;
+- informa outros estados retornados pelo ADB, como `unauthorized` ou `offline`;
+- consulta fabricante, modelo e versão do Android quando o estado é `device`;
+- verifica o código de retorno de cada consulta e mostra uma mensagem específica em caso de falha.
+
+As consultas ao fabricante, ao modelo e à versão do Android têm verificações independentes. Se uma delas retornar um código de erro, o programa ainda tenta executar as consultas seguintes.
 
 ## Requisitos
 
 - Python 3;
-- Android SDK Platform-Tools com o comando `adb` disponível no `PATH`;
-- aparelho Android com a depuração USB ativada;
-- cabo USB com suporte à transferência de dados.
+- [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) com o comando `adb` disponível no `PATH`;
+- aparelho Android com a depuração USB ativada e a conexão autorizada no aparelho;
+- cabo USB com suporte à transferência de dados;
+- Git, caso o repositório seja obtido pelo comando `git clone`.
 
-O desenvolvimento e os testes atuais estão sendo realizados no Windows.
+O desenvolvimento e os testes atuais estão sendo realizados no Windows, com Python 3.14.7. A aplicação utiliza somente a biblioteca padrão do Python; não há dependências Python externas para instalar.
 
 ## Como executar
 
-Clone o repositório:
+Clone o repositório e entre na pasta do projeto:
 
-```bash
+```powershell
 git clone https://github.com/paulomatheuz/android-qa-toolkit.git
 cd android-qa-toolkit
 ```
 
 Confirme que o ADB está disponível:
 
-```bash
+```powershell
 adb --version
 ```
 
-Conecte e autorize o aparelho e execute:
+Conecte somente um aparelho, autorize a depuração USB nesse computador e confira a conexão:
 
-```bash
+```powershell
+adb devices
+```
+
+Quando o estado do aparelho for `device`, execute:
+
+```powershell
 python main.py
 ```
 
-Exemplo com um aparelho autorizado:
+Exemplo com um aparelho autorizado (número de série fictício; os demais valores variam conforme o aparelho):
 
 ```text
 Numero de serie: ABC123456789
 Aparelho conectado e autorizado!
+Fabricante: samsung
+Modelo: SM-S942B
+Versão Android: 16
 ```
 
 Exemplo sem aparelho conectado:
@@ -67,6 +83,8 @@ Exemplo sem aparelho conectado:
 ```text
 Nenhum aparelho conectado!
 ```
+
+Se o estado for diferente de `device`, o programa informa esse estado e não realiza as consultas às propriedades do aparelho.
 
 ## Tecnologias
 
@@ -80,28 +98,32 @@ Nenhum aparelho conectado!
 Durante o desenvolvimento deste projeto, estou praticando:
 
 - variáveis, strings e listas;
-- condicionais;
+- condicionais e indentação;
 - módulos e imports;
 - execução de comandos externos;
 - captura e tratamento da saída de processos;
-- códigos de retorno;
+- separação entre a saída textual (`stdout`) e o código de retorno (`returncode`);
 - tratamento de exceções;
-- depuração;
+- depuração e verificação dos caminhos de sucesso e falha;
 - versionamento incremental com Git.
 
 ## Limitações atuais
 
-- considera somente o primeiro aparelho listado pelo ADB;
+- considera somente o primeiro aparelho listado pelo ADB e não oferece seleção de dispositivo;
+- deve ser utilizado com apenas um aparelho ou emulador conectado: as consultas ainda não selecionam o destino pelo número de série;
 - depende do ADB instalado e configurado no `PATH`;
-- ainda não coleta informações detalhadas do aparelho;
+- consulta apenas informações básicas; ainda não consulta bateria, memória ou armazenamento;
 - ainda não executa testes de software ou hardware;
-- possui somente uma interface de terminal.
+- possui somente uma interface de terminal;
+- a execução em Linux e macOS ainda não foi validada no projeto.
 
 ## Próximos passos
 
-- consultar fabricante, modelo e versão do Android;
-- melhorar o tratamento dos diferentes estados de conexão;
+- praticar funções para organizar as consultas repetidas, conforme a evolução do aprendizado;
+- melhorar as mensagens de falha e o tratamento dos diferentes estados de conexão;
 - manter a documentação atualizada conforme novas funcionalidades forem concluídas.
+
+Cada evolução deve ser pequena, compreensível, testada e registrada em um commit significativo.
 
 ## Segurança
 
