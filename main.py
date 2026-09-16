@@ -16,6 +16,17 @@ try:
             print(f"Numero de serie: {numero_serie}")
             if estado == "device":
                 print("Aparelho conectado e autorizado!")
+                resultado_fabricante = subprocess.run(
+                    ["adb", "shell", "getprop", "ro.product.manufacturer"],
+                    capture_output= True,
+                    text=True
+                )
+
+                if resultado_fabricante.returncode == 0:
+                    fabricante = resultado_fabricante.stdout.strip()
+                    print(f"Fabricante: {fabricante}")
+                else:
+                    print("Não foi possível consultar o fabricante!")
             else:
                 print(f"Estado do aparelho: {estado}")
         else:
