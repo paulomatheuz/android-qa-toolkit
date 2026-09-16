@@ -27,6 +27,18 @@ try:
                     print(f"Fabricante: {fabricante}")
                 else:
                     print("Não foi possível consultar o fabricante!")
+
+                resultado_modelo = subprocess.run(
+                    ["adb", "shell", "getprop", "ro.product.model"],
+                    capture_output=True,
+                    text=True
+                )
+
+                if resultado_modelo.returncode == 0:
+                    modelo = resultado_modelo.stdout.strip()
+                    print(f"Modelo: {modelo}")
+                else:
+                    print("Não foi possível consultar o modelo!")
             else:
                 print(f"Estado do aparelho: {estado}")
         else:
