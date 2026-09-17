@@ -4,6 +4,10 @@ Aplicação de terminal desenvolvida em Python para auxiliar testes e diagnósti
 
 O projeto está sendo construído de forma incremental, com foco no aprendizado prático de Python, automação, comunicação com dispositivos Android, tratamento de erros, Git e GitHub.
 
+![Android QA Toolkit](assets/banner-readme.png)
+
+---
+
 ## Status
 
 🚧 Em desenvolvimento
