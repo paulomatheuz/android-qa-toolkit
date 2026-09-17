@@ -1,5 +1,16 @@
 import subprocess
 
+def consultar_getprop(propriedade):
+    resultado = subprocess.run(
+        ["adb", "shell", "getprop", propriedade],
+        capture_output=True,
+        text=True
+    )
+
+    if resultado.returncode == 0:
+        return resultado.stdout.strip()
+    else:
+        return None
 
 try:
     resultado = subprocess.run(
@@ -18,37 +29,22 @@ try:
                 print("Aparelho conectado e autorizado!")
 
 
-                resultado_fabricante = subprocess.run(
-                    ["adb", "shell", "getprop", "ro.product.manufacturer"],
-                    capture_output= True,
-                    text=True
-                )
-                if resultado_fabricante.returncode == 0:
-                    fabricante = resultado_fabricante.stdout.strip()
+                fabricante = consultar_getprop("ro.product.manufacturer")
+                if fabricante is not None:
                     print(f"Fabricante: {fabricante}")
                 else:
                     print("Não foi possível consultar o fabricante!")
 
 
-                resultado_modelo = subprocess.run(
-                    ["adb", "shell", "getprop", "ro.product.model"],
-                    capture_output=True,
-                    text=True
-                )
-                if resultado_modelo.returncode == 0:
-                    modelo = resultado_modelo.stdout.strip()
+                modelo = consultar_getprop("ro.product.model")
+                if modelo is not None:
                     print(f"Modelo: {modelo}")
                 else:
                     print("Não foi possível consultar o modelo!")
 
 
-                resultado_versao_android = subprocess.run(
-                    ["adb", "shell", "getprop", "ro.build.version.release"],
-                    capture_output=True,
-                    text=True
-                )
-                if resultado_versao_android.returncode == 0:
-                    versao_android = resultado_versao_android.stdout.strip()
+                versao_android = consultar_getprop("ro.build.version.release")
+                if versao_android is not None:
                     print(f"Versão Android: {versao_android}")
                 else:
                     print("Não foi possível consultar a versão do android!")
