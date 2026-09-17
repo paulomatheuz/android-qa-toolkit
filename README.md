@@ -6,7 +6,8 @@ O projeto está sendo construído de forma incremental, com foco no aprendizado 
 
 ![Android QA Toolkit](assets/banner-readme.png)
 
----
+#
+
 
 ## Status
 
