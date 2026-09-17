@@ -58,6 +58,7 @@ try:
 
                 if resultado_bateria.returncode == 0:
                     linhas_bateria = resultado_bateria.stdout.splitlines()
+                    nivel_bateria = None
                     for linha in linhas_bateria:
                         if linha.strip().startswith("level:"):
                             partes = linha.split(":")
@@ -65,6 +66,8 @@ try:
                             print(f"Bateria: {nivel_bateria}%")
                             if nivel_bateria < 20:
                                 print("Bateria baixa!")
+                    if nivel_bateria is None:
+                        print("Nível da bateria não encontrado na saída!")
                 else:
                     print("Não foi possível consultar o nível da bateria!")
             elif estado == "unauthorized":
