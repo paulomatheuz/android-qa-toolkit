@@ -52,6 +52,26 @@ try:
                     print(f"Versão Android: {versao_android}")
                 else:
                     print("Não foi possível consultar a versão do android!")
+
+
+                resultado_bateria = subprocess.run(
+                    ["adb", "shell", "dumpsys", "battery"],
+                    capture_output=True,
+                    text=True
+                )
+
+                if resultado_bateria.returncode == 0:
+                    linhas_bateria = resultado_bateria.stdout.splitlines()
+                    for linha in linhas_bateria:
+                        if linha.strip().startswith("level:"):
+                            partes = linha.split(":")
+                            nivel_bateria = int(partes[1].strip())
+                            print(f"Bateria: {nivel_bateria}%")
+                            if nivel_bateria < 20:
+                                print("Bateria baixa!")
+                else:
+                    print("Não foi possível consultar o nível da bateria!")
+
             else:
                 print(f"Estado do aparelho: {estado}")
         else:
