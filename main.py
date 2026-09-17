@@ -67,7 +67,10 @@ try:
                                 print("Bateria baixa!")
                 else:
                     print("Não foi possível consultar o nível da bateria!")
-
+            elif estado == "unauthorized":
+                print(f"{estado}: desbloqueie o celular e aceite a autorização USB")
+            elif estado == "offline":
+                print(f"{estado}: verifique o cabo/conexão e reinicie o ADB")
             else:
                 print(f"Estado do aparelho: {estado}")
         else:
