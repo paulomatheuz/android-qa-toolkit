@@ -2,7 +2,7 @@
 
 Aplicação de terminal desenvolvida em Python para auxiliar testes e diagnósticos básicos de aparelhos Android por meio do Android Debug Bridge (ADB).
 
-O projeto está sendo construído de forma incremental, com foco no aprendizado prático de Python, automação, comunicação com dispositivos Android, tratamento de erros, Git e GitHub.
+A ferramenta automatiza verificações recorrentes realizadas durante o diagnóstico de dispositivos Android. Ela valida a disponibilidade do ADB, identifica o estado da conexão e coleta informações como fabricante, modelo, versão do Android e nível da bateria.
 
 ![Android QA Toolkit](assets/banner-readme.png)
 
@@ -101,18 +101,14 @@ Quando a conexão ainda não foi autorizada:
 unauthorized: desbloqueie o celular e aceite a autorização USB
 ```
 
-## Tecnologias e conceitos praticados
+## Implementação técnica
 
 - Python;
 - Android Debug Bridge (ADB);
 - módulo `subprocess`;
-- funções e valores de retorno;
-- condicionais e indentação;
-- listas, strings e conversão para inteiros;
 - captura de saída com `stdout`;
 - códigos de retorno com `returncode`;
 - tratamento de exceções;
-- laços `for`;
 - depuração de caminhos de sucesso e falha;
 - versionamento incremental com Git e GitHub.
 
