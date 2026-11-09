@@ -139,4 +139,4 @@ Use o ADB somente em aparelhos próprios ou para os quais você tenha autorizaç
 
 Desenvolvido por [Paulo Matheus](https://github.com/paulomatheuz).
 
-Você também pode me encontrar no [LinkedIn](https://www.linkedin.com/in/paulo-matheus-b6b1a63a3/).
+Você também pode me encontrar no [LinkedIn](https://www.linkedin.com/in/paulomatheuz/).
